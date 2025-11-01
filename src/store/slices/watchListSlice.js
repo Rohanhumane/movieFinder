@@ -4,8 +4,8 @@ import { PURGE } from "redux-persist";
 
 const initialState = {
   watchListMovies: [],
-  searchQuery: "",
 };
+
 const watchListSlice = createSlice({
   name: "watchList",
   initialState,
@@ -20,7 +20,7 @@ const watchListSlice = createSlice({
     },
     removeWatchList(state, action) {
       state.watchListMovies = state.watchListMovies.filter(
-        (movie) => movie["#IMDB_ID"] !== action.payload
+        (movie) => movie.id !== action.payload
       );
     },
     sortUpwards(state) {
@@ -29,22 +29,27 @@ const watchListSlice = createSlice({
     sortDownwards(state) {
       state.watchListMovies.sort((a, b) => (a["#YEAR"] < b["#YEAR"] ? 1 : -1));
     },
-    setSearchQuery(state, action) {
-      state.searchQuery = action.payload;
-    },
   },
 });
 
 export const watchListActions = watchListSlice.actions;
 export default watchListSlice.reducer;
 
-// ---- SELECTORS ----
+
 export const selectWatchList = (state) => state.watchList.watchListMovies;
 
-export const selectFilteredWatchList = createSelector(
-  [selectWatchList, (state) => state.watchList.searchQuery],
-  (watchListMovies, searchQuery) =>
-    watchListMovies.filter((movie) =>
-      movie["#TITLE"].toLowerCase().includes(searchQuery.toLowerCase())
+// export const selectFilteredWatchList=(searchQuery) => createSelector(
+//   [selectWatchList, searchQuery],
+//   (watchListMovies, searchQuery) =>
+//     watchListMovies.filter((movie) =>
+//       movie.title.toLowerCase().includes(searchQuery.toLowerCase())
+//     )
+// );
+
+export const selectFilteredWatchList = (searchQuery) =>
+  createSelector([selectWatchList], (watchListMoviess) =>
+    watchListMoviess.filter((movie) =>
+      movie.title.toLowerCase().includes(searchQuery.toLowerCase())
     )
-);
+  );
+

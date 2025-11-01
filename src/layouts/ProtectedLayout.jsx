@@ -6,8 +6,7 @@ export const ProtectedLayout = () => {
   const { isLogin } = useSelector((state) => state.auth);
 
     const location = useLocation();
-    
-    console.log(location,"sssssssss")
+  
 
   if (!isLogin) {
     return <Navigate to="/signup" state={{ from: location }} replace />;

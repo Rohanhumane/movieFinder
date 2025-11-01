@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
+import { getImageUrl } from "../api/movieApi";
 
 const MAXVIEW = 5;
 
@@ -48,17 +49,17 @@ export const RecentViewMovie = () => {
         <ul className="flex gap-4">
           {visibleMovies.map((movie) => (
             <li
-              key={movie["#IMDB_ID"]}
+              key={movie.id}
               className="bg-gray-700 rounded-lg overflow-hidden shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 w-32"
             >
               <img
-                src={movie["#IMG_POSTER"]}
-                alt={movie["#TITLE"] || "poster"}
+                src={getImageUrl(movie["poster_path"])}
+                alt={movie.title || "poster"}
                 className="w-full h-48 object-cover"
               />
               <div className="p-2">
                 <h3 className="text-sm text-white text-center line-clamp-2">
-                  {movie["#TITLE"]}
+                  {movie.title}
                 </h3>
               </div>
             </li>

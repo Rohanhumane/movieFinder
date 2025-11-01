@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useForm } from "../useHook/useForm";
+import { useForm } from "../hook/useForm";
 import { validate } from "../utils/helper";
 
 export const ContactForm = () => {

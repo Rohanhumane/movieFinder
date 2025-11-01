@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../store/slices/authSlice";
 import { useNavigate } from "react-router-dom";
-import { useForm } from "../useHook/useForm";
+import { useForm } from "../hook/useForm";
 import { validate } from "../utils/helper";
 
 const DETAILS = { email: "", password: "" };
@@ -26,7 +26,6 @@ export const Login = () => {
     handleSubmit: handleLogin,
   } = useForm({ initialValues: DETAILS, validate, onSubmit });
 
-  console.log(from, "dddddd", location.state, errors);
   useEffect(() => {
     if (isLogin) {
       navigate(from, { replace: true });

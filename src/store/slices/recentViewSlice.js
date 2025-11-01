@@ -12,7 +12,7 @@ const recentViewSlice = createSlice({
   reducers: {
     getViewRecentMovie(state, action) {
       const checkAlreadyPresent = state.some(
-        (m) => m["#IMDB_ID"] === action.payload["#IMDB_ID"]
+        (m) => m.id=== action.payload.id
       );
       if (!checkAlreadyPresent) state.push(action.payload);
     },

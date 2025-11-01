@@ -13,7 +13,8 @@ export const WatchList = () => {
   const dispatch = useDispatch();
   const [sort, setSort] = useState(true);
 
-  const movies = useSelector(selectFilteredWatchList);
+  const searchQuery = useSelector((state) => state.searchQuery.query);
+  const movies = useSelector(selectFilteredWatchList(searchQuery));
 
   useEffect(() => {
     if (sort) {
@@ -21,11 +22,11 @@ export const WatchList = () => {
     } else {
       dispatch(watchListActions.sortDownwards());
     }
-  }, [sort]);
+  }, [sort, dispatch]);
 
   return (
     <>
-      <Search onSearch={watchListActions.setSearchQuery} />
+      <Search />
       <div className="p-6">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-xl font-semibold">{movies.length} Titles</h3>
